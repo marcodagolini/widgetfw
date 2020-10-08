@@ -5,6 +5,7 @@
 	 
 
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	 <script src="https://lpcdn.lpsnmedia.net/webagent/client-SDK.min.js"></script>
 
  
  
@@ -22,6 +23,44 @@
 
  	
  <script>
+	 
+	 $(document).ready(function() {
+              
+                var SDK=lpTag.agentSDK;
+                SDK.init();
+		 
+		 var myURL = "";
+              
+                var onSuccess = function(data) {
+			
+
+			
+                    // Do something with the returning data
+			if(data.includes("whatsapp")){
+				myURL = "https://ts-emea-fastweb-datawidget.dev.fs.liveperson.com/"
+			}
+			else {
+				myURL = "https://ts-emea-fastweb-agentwidget.stg.fs.liveperson.com/"
+			}
+			
+			var iframe = document.createElement('iframe');
+			iframe.src = myURL;
+			document.body.appendChild(iframe);
+			
+
+		  
+
+                };
+                
+                var onError = function(data) {
+                  console.log("Error");
+                };
+                
+             
+                SDK.get('authenticatedData.customerDetails.customerId', onSuccess, onError);               
+              
+            });
+
 	
  
   </script>
